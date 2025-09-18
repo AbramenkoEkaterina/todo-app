@@ -5,9 +5,31 @@ const addTodoBtn = document.querySelector("[data-add-todo-btn]");//кнопка 
 const searchTodoInput = document.querySelector("[data-search-todo-input]"); // поле поиска
 const todosContainer = document.querySelector("[data-todo-container]")//лист куда добавляются задачи
 const todoTemplate = document.querySelector("[data-todo-template]")//шаблон разметки
+const clearCompletedBtn = document.querySelector("[data-clear-completed-btn]")//кнопка удаления всех выполненных дел
+const statsContainer = document.querySelector("[data-todo-stats]")
+
+const updateStats = () => {
+    const completedCount = todoList.filter(todo => todo.completed).length;
+    const notCompletedCount = todoList.filter(todo => !todo.completed).length;
+
+    statsContainer.textContent = `Выполненные: ${completedCount} | Невыолненные: ${notCompletedCount}`
+}
 
 let todoList = getTodosFromLocalStorege();
 let filteredTodosList = [];
+
+clearCompletedBtn.addEventListener("click", () => {
+    todoList =todoList.filter(todo => !todo.completed);
+    saveTodosIntoLocalStorege(todoList);
+
+    if (searchTodoInput.value.trim()) {
+        filterAndRenderFilteredTodos(searchTodoInput.value.trim())
+    }
+    else {
+        renderTodos();
+        updateStats();
+    }
+})
 
 addTodoBtn.addEventListener("click", () => {
     if (addTodoInput.value.trim()) {
@@ -43,6 +65,7 @@ const filterAndRenderFilteredTodos = (searchValue) => {
        return t.text.includes(searchValue);
     })
     renderFilteredTodos()
+    updateStats();
     
 }
 
@@ -75,6 +98,7 @@ const createTodoLayout = (todo) => {
             filterAndRenderFilteredTodos(searchTodoInput.value.trim());
         } else {
             renderTodos();
+            updateStats();
         }
     })
 
@@ -90,6 +114,7 @@ const createTodoLayout = (todo) => {
             filterAndRenderFilteredTodos(searchTodoInput.value.trim());
         } else {
             renderTodos();
+            updateStats();
         }
     })
 
@@ -128,3 +153,4 @@ const renderFilteredTodos = () => {
 
 
 renderTodos();
+updateStats();

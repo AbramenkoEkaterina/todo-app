@@ -132,3 +132,90 @@ background-color: #6acb8e;
 text-decoration: line-through;
 }
 }
+
+.todo-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.clear-completed-btn {
+        font-size: 20px;
+        user-select: none;
+        padding: 20px;
+        max-width: 200px;
+    }
+
+.shine-bar {
+  position: relative;
+  width: 100%;          /* растянуть на всю ширину */
+  text-align: center;   /* выровнять текст по центру */
+  padding: 10px 0;      /* чуть больше вертикальных отступов */
+  font-family: "Arial Black", sans-serif;
+  font-size: 18px;
+  text-transform: uppercase;
+  border-radius: 0;     /* убираем скругление, если нужна прямая полоса */
+  overflow: hidden;
+  color: #000;
+  background: linear-gradient(
+    135deg,
+    #d9d9d9,
+    #f0f0f0,
+    #bfbfbf,
+    #e6e6e6,
+    #a6a6a6
+  );
+  background-size: 400% 400%;
+  box-shadow: 0 5px 25px rgba(255, 255, 255, 0.3),
+              inset 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+    /* Сам блик */
+    .shine-bar::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -30%;
+      width: 50%;
+      height: 200%;
+      background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.8) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: skewX(-20deg);
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      0%   { left: -50%; }
+      100% { left: 120%; }
+    }
+
+html, body {
+  height: 100%;       /* растягиваем на всю высоту окна */
+  margin: 0;          /* убираем отступы */
+  display: flex;
+  flex-direction: column; /* вертикальная колонка */
+}
+
+main {
+  flex: 1;  /* занимает всё свободное место */
+}
+
+footer {
+    margin-top: 30px;
+    height: 60px;
+    background: #333;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.todo-stats {
+    font-size: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
